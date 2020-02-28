@@ -1,9 +1,9 @@
-from flask import render_template, flash, redirect, request, url_for
-from flask_login import current_user, login_user, logout_user, login_required
-from app import app
-from app.forms import LoginForm
-from app.models import User
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
+from app import app, db
+from app.forms import LoginForm, RegistrationForm
+from app.models import User
 
 @app.route('/')
 @app.route('/index')
@@ -15,7 +15,9 @@ def index():
             'body': 'I love BorBor!'
         }
     ]
+
     return render_template('index.html', title='Home', posts=posts)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,7 +36,23 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Thank you for registering!')
+        return redirect(url_for('login'))
+    return render_template('registration.html', title='Register', form=form)
