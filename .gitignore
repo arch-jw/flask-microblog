@@ -190,3 +190,4 @@ pip-selfcheck.json
 .flaskenv
 # End of https://www.gitignore.io/api/flask,python,virtualenv
 
+.DS_Store
