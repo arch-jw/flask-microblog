@@ -13,3 +13,4 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['admin@microblog-app.com']
     POSTS_PER_PAGE = 15
+    LANGUAGES = ['en', 'es']
