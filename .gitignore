@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=flask,python,virtualenv
 
 # Anything to do with Logging #
-logs/*
+app/logs/*
 
 ### Flask Migrations ###
 *.mako
