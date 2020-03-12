@@ -8,7 +8,8 @@ app/logs/*
 ### Flask Migrations ###
 *.mako
 *.ini
-migrations/env.py
+#migrations/env.py
+
 
 ### Database ###
 *.accdb
